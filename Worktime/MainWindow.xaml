@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Worktime"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800"
+        Loaded="OnLoaded">
+    <Window.Resources>
+        <local:Model x:Key="Model" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource Model}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
@@ -19,24 +23,25 @@
             <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Project" Width="120" />
-                    <GridViewColumn Header="From" Width="80"/>
-                    <GridViewColumn Header="To"  Width="80"/>
-                    <GridViewColumn Header="Total" Width="50" />
-                    <GridViewColumn Header="Description" Width="160" />
-                </GridView>
-            </ListView.View>
-        </ListView>
         <Label Grid.Row="0" Grid.Column="0">Project</Label>
         <Label Grid.Row="1" Grid.Column="0">From</Label>
         <Label Grid.Row="2" Grid.Column="0">To</Label>
         <Label Grid.Row="3" Grid.Column="0">Total</Label>
-        <ComboBox Grid.Row="0" Grid.Column="1" />
-        <DatePicker Grid.Row="1" Grid.Column="1" />
-        <DatePicker Grid.Row="2" Grid.Column="1" />
-        <Label Grid.Row="3" Grid.Column="1">0</Label>
+        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=Projects}"
+                  SelectedItem="{Binding Path=QueryProject}" />
+        <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=QueryFrom}" />
+        <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Path=QueryTo}" />
+        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=Total}" />
+        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" ItemsSource="{Binding Path=WorkItems}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Path=Project}" />
+                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path=From}" />
+                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path=To}" />
+                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Path=Total}" />
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

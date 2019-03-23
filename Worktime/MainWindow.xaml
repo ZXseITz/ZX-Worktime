@@ -1,0 +1,42 @@
+﻿<Window x:Class="Worktime.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Worktime"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Project" Width="120" />
+                    <GridViewColumn Header="From" Width="80"/>
+                    <GridViewColumn Header="To"  Width="80"/>
+                    <GridViewColumn Header="Total" Width="50" />
+                    <GridViewColumn Header="Description" Width="160" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Grid.Row="0" Grid.Column="0">Project</Label>
+        <Label Grid.Row="1" Grid.Column="0">From</Label>
+        <Label Grid.Row="2" Grid.Column="0">To</Label>
+        <Label Grid.Row="3" Grid.Column="0">Total</Label>
+        <ComboBox Grid.Row="0" Grid.Column="1" />
+        <DatePicker Grid.Row="1" Grid.Column="1" />
+        <DatePicker Grid.Row="2" Grid.Column="1" />
+        <Label Grid.Row="3" Grid.Column="1">0</Label>
+    </Grid>
+</Window>

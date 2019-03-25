@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Worktime
 {
     public class Model
     {
-        public List<string> Projects { get; }
-        public List<WorkItem> WorkItems { get; }
+        public ObservableCollection<string> Projects { get; }
+        public ObservableCollection<WorkItem> WorkItems { get; }
         public string QueryProject { get; set; }
         public DateTime QueryFrom { get; set; }
         public DateTime QueryTo { get; set; }
@@ -14,8 +14,8 @@ namespace Worktime
 
         public Model()
         {
-            Projects = new List<string>();
-            WorkItems = new List<WorkItem>();
+            Projects = new ObservableCollection<string>();
+            WorkItems = new ObservableCollection<WorkItem>();
         }
     }
 }

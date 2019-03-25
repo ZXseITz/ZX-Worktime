@@ -28,9 +28,9 @@
         <Label Grid.Row="2" Grid.Column="0">To</Label>
         <Label Grid.Row="3" Grid.Column="0">Total</Label>
         <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=Projects}"
-                  SelectedItem="{Binding Path=QueryProject}" />
-        <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=QueryFrom}" />
-        <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Path=QueryTo}" />
+                  SelectedItem="{Binding Path=QueryProject, Mode=TwoWay}" />
+        <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=QueryFrom, Mode=TwoWay}" />
+        <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Path=QueryTo, Mode=TwoWay}" />
         <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=Total}" />
         <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" ItemsSource="{Binding Path=WorkItems}">
             <ListView.View>
@@ -38,7 +38,7 @@
                     <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Path=Project}" />
                     <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path=From}" />
                     <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path=To}" />
-                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Path=Total}" />
+                    <!--<GridViewColumn Header="Total" DisplayMemberBinding="{Binding Path=Total}" />-->
                     <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
                 </GridView>
             </ListView.View>

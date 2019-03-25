@@ -28,9 +28,8 @@ namespace Worktime
             //model.QueryFrom = DateTime.MinValue;
             //model.QueryTo = DateTime.MaxValue;
 
-            var projectNames = db.GetProjects().ContinueWith(task => model.Projects.AddRange(task.Result));
-
-            //model.WorkItems.Add(new WorkItem("SMESEC", DateTime.Now, DateTime.Now, "test"));
+            db.GetProjects().ContinueWith(task => Application.Current?.Dispatcher.InvokeAsync(() => task.Result.ForEach(model.Projects.Add)));
+            db.GetWorkItems().ContinueWith(task => Application.Current?.Dispatcher.InvokeAsync(() => task.Result.ForEach(model.WorkItems.Add)));
 
         }
     }

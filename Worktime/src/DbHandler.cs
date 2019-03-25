@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,27 @@ namespace Worktime.src
             }
 
             return projects;
+        }
+
+        public async Task<List<WorkItem>> GetWorkItems()
+        {
+            var workitems = new List<WorkItem>();
+            using (var cursor = await _workitems.FindAsync(new BsonDocument()))
+            {
+                while (await cursor.MoveNextAsync())
+                {
+                    workitems.AddRange(cursor.Current.Select(document =>
+                    {
+                        var project = (string) document["project"];
+                        var from = (DateTime) document["from"];
+                        var to = (DateTime) document["to"];
+                        var description = (string) document["description"];
+                        return new WorkItem(project, from, to, description);
+                    }));
+                }
+            }
+
+            return workitems;
         }
     }
 }

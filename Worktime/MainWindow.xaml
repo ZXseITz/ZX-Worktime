@@ -6,10 +6,8 @@
         xmlns:local="clr-namespace:Worktime"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
+        KeyDown="OnKeyDown"
         Loaded="OnLoaded">
-    <Window.Resources>
-        <local:Model x:Key="Model" />
-    </Window.Resources>
     <Grid DataContext="{StaticResource Model}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -38,7 +36,6 @@
                     <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Path=Project}" />
                     <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path=From}" />
                     <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path=To}" />
-                    <!--<GridViewColumn Header="Total" DisplayMemberBinding="{Binding Path=Total}" />-->
                     <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
                 </GridView>
             </ListView.View>

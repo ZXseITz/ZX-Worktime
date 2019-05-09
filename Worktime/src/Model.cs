@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Worktime
 {
-    public class Model : INotifyPropertyChanged
+    public class Model : AbstractModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<string> Projects { get; }
         public ObservableCollection<WorkItem> WorkItems { get; }
@@ -59,11 +56,6 @@ namespace Worktime
         {
             Projects = new ObservableCollection<string>();
             WorkItems = new ObservableCollection<WorkItem>();
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

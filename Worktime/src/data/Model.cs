@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Worktime
+namespace Worktime.src.data
 {
     public class Model : AbstractModel
     {
 
-        public ObservableCollection<string> Projects { get; }
+        public ObservableCollection<Project> Projects { get; }
         public ObservableCollection<WorkItem> WorkItems { get; }
 
         private string _queryProject;
@@ -54,7 +54,7 @@ namespace Worktime
 
         public Model()
         {
-            Projects = new ObservableCollection<string>();
+            Projects = new ObservableCollection<Project>();
             WorkItems = new ObservableCollection<WorkItem>();
         }
     }

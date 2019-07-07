@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Worktime.src.data;
 
 namespace Worktime.src
 {
@@ -12,56 +13,67 @@ namespace Worktime.src
         private IMongoCollection<BsonDocument> _projects;
         private IMongoCollection<BsonDocument> _workitems;
 
-        public DbHandler(string url, string dbName, string projectCollectionName, string workitemCollectionName)
+        public DbHandler(string host, int port, string dbName,
+            string projectCollectionName, string workitemCollectionName)
         {
-            var client = new MongoClient(new MongoUrl(url));
+            var client = new MongoClient(new MongoClientSettings()
+            {
+                Server = new MongoServerAddress(host, port)
+            });
             var database = client.GetDatabase(dbName);
             _projects = database.GetCollection<BsonDocument>(projectCollectionName);
             _workitems = database.GetCollection<BsonDocument>(workitemCollectionName);
         }
 
-        public async Task AddProject(string name)
+        // ************
+        //   Projects  
+        // ************
+
+        public async Task<Project> CreateProject(string name)
         {
             var document = new BsonDocument()
             {
                 {"name", name}
             };
             await _projects.InsertOneAsync(document);
+            return new Project(document["_id"].AsObjectId, name);
         }
 
-        public async Task<List<string>> GetProjects()
+        public async Task<List<Project>> GetProjects()
         {
-            var projects = new List<string>();
+            var projects = new List<Project>();
             using (var cursor = await _projects.FindAsync(new BsonDocument()))
             {
                 while (await cursor.MoveNextAsync())
                 {
-                    projects.AddRange(cursor.Current.Select(document => (string) document["name"]));
+                    projects.AddRange(cursor.Current.Select(document =>
+                        new Project(document["_id"].AsObjectId, document["name"].AsString)));
                 }
             }
-
             return projects;
         }
 
-        public async Task<List<WorkItem>> GetWorkItems()
+        public async void UpdateProject(Project project)
         {
-            var workitems = new List<WorkItem>();
-            using (var cursor = await _workitems.FindAsync(new BsonDocument()))
-            {
-                while (await cursor.MoveNextAsync())
-                {
-                    workitems.AddRange(cursor.Current.Select(document =>
-                    {
-                        var project = (string) document["project"];
-                        var from = (DateTime) document["from"];
-                        var to = (DateTime) document["to"];
-                        var description = (string) document["description"];
-                        return new WorkItem(project, from, to, description);
-                    }));
-                }
-            }
-
-            return workitems;
+            await _projects.UpdateOneAsync(new BsonDocument(){
+                    {"_id", project.Id}
+                }, 
+                new BsonDocumentUpdateDefinition<BsonDocument>(new BsonDocument() {
+                    {"name", project.Name}
+                }));
         }
+
+        public async void DeleteProject(Project project)
+        {
+            await _projects.DeleteOneAsync(new BsonDocument(){
+                    {"_id", project.Id}
+                });
+        }
+
+        // *************
+        //   WorkItems  
+        // *************
+
+
     }
 }

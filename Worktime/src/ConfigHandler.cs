@@ -20,7 +20,8 @@ namespace Worktime.src
             var json = File.ReadAllText(Config);
             var conf = JObject.Parse(json);
 
-            _configs.Add("url", conf.Value<string>("url"));
+            _configs.Add("host", conf.Value<string>("host"));
+            _configs.Add("port", conf.Value<int>("port"));
             _configs.Add("db", conf.Value<string>("database_name"));
             _configs.Add("projects", conf.Value<string>("project_collection_name"));
             _configs.Add("workitems", conf.Value<string>("workitem_collection_name"));

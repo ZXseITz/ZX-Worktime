@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace Worktime
+namespace Worktime.src.data
 {
-    public class WorkItemModel : AbstractModel
+    public class WorkItem : AbstractModel
     {
-        private string _project;
+        private Project _project;
         private DateTime _from;
         private DateTime _to;
         private string _description;
 
-        public string Project
+        public Project Project
         {
             get => _project;
             set
@@ -49,18 +49,12 @@ namespace Worktime
             }
         }
 
-        public WorkItemModel()
+        public WorkItem(Project project, DateTime from, DateTime to, string description)
         {
-            From = DateTime.Now;
-            To = DateTime.Now;
-        }
-
-        public WorkItemModel(WorkItem item)
-        {
-            Project = item.Project;
-            From = item.From;
-            To = item.To;
-            Description = item.Description;
+            _project = project;
+            _from = from;
+            _to = to;
+            _description = description;
         }
     }
 }

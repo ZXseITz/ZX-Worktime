@@ -78,14 +78,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="src\AbstractModel.cs" />
+    <Compile Include="src\data\AbstractModel.cs" />
     <Compile Include="src\ConfigHandler.cs" />
     <Compile Include="src\DbHandler.cs" />
-    <Compile Include="src\WorkItemModel.cs" />
-    <Compile Include="src\WorkItem.cs" />
-    <Compile Include="WorkItemWindow.xaml.cs">
-      <DependentUpon>WorkItemWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="src\data\Project.cs" />
+    <Compile Include="src\data\WorkItem.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,13 +95,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="WorkItemWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Model.cs" />
+    <Compile Include="src\data\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

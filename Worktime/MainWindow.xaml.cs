@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using MongoDB.Bson;
 using Worktime.src;
+using Worktime.src.data;
 
 namespace Worktime
 {
@@ -12,6 +14,7 @@ namespace Worktime
     public partial class MainWindow : Window
     {
         private Model _model;
+        private DbHandler _database;
 
         public MainWindow()
         {
@@ -22,8 +25,9 @@ namespace Worktime
         {
             _model = FindResource("Model") as Model;
             if (_model == null) throw new Exception("Cannot find model");
+            _model.Projects.Add(new Project(ObjectId.Empty, "All Projects"));
             var config = ConfigHandler.Instance;
-            var database = new DbHandler((string)config["url"], (string) config["db"],
+            _database = new DbHandler((string)config["host"], (int)config["port"], (string) config["db"],
                 (string)config["projects"], (string) config["workitems"]);
 
             //model.QueryFrom = DateTime.MinValue;
@@ -45,26 +49,35 @@ namespace Worktime
             //    }
             //};
 
-            database.GetProjects().ContinueWith(task =>
-                Application.Current?.Dispatcher.InvokeAsync(() => task.Result.ForEach(_model.Projects.Add)));
-            database.GetWorkItems().ContinueWith(task =>
-                Application.Current?.Dispatcher.InvokeAsync(() => task.Result.ForEach(_model.WorkItems.Add)));
+            _database.GetProjects().ContinueWith(task => Application.Current?.Dispatcher.InvokeAsync(() =>
+                task.Result.ForEach(_model.Projects.Add)));
+            //_database.GetWorkItems().ContinueWith(task => Application.Current?.Dispatcher.InvokeAsync(() =>
+            //    task.Result.ForEach(_model.WorkItems.Add)));
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
+            //todo: remove test shortcut
             if (e.Key == Key.N && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             {
-                AddWorkItem();
+                CreateProject("Test");
             }
         }
 
-        private void AddWorkItem()
+        private void CreateProject(string name)
         {
-            //var work = new WorkItem("", DateTime.Now, DateTime.Now, "");
-            //var window = new WorkItemWindow(work);
-            var window = new WorkItemWindow();
-            window.Show();
+            _database.CreateProject(name).ContinueWith(task => Application.Current?.Dispatcher.InvokeAsync(() =>
+                _model.Projects.Add(task.Result)));
+        }
+
+        private void UpdateProject(Project project)
+        {
+            _database.UpdateProject(project);
+        }
+
+        private void DeleteProject(Project project)
+        {
+            _database.DeleteProject(project);
         }
     }
 }

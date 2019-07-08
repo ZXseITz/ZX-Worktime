@@ -9,42 +9,37 @@
         KeyDown="OnKeyDown"
         Loaded="OnLoaded">
     <Grid DataContext="{StaticResource Model}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="5*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0">Project</Label>
-        <Label Grid.Row="1" Grid.Column="0">From</Label>
-        <Label Grid.Row="2" Grid.Column="0">To</Label>
-        <Label Grid.Row="3" Grid.Column="0">Total</Label>
-        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=Projects}"
-                  SelectedItem="{Binding Path=QueryProject, Mode=TwoWay}" Text="{Binding Path=Name}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Path=Name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=QueryFrom, Mode=TwoWay}" />
-        <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Path=QueryTo, Mode=TwoWay}" />
-        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=Total}" />
-        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" ItemsSource="{Binding Path=WorkItems}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Path=Project}" />
-                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path=From}" />
-                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path=To}" />
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center">Projects</Label>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button>New</Button>
+            <ListView ItemsSource="{Binding Path=Projects}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center">Project Items</Label>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <ListView Grid.Column="1" Name="ProjectList" ItemsSource="{Binding Path=WorkItems}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Path=Project}" />
+                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path=From}" />
+                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path=To}" />
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Window>

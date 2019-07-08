@@ -9,8 +9,8 @@ namespace Worktime.src.data
         public ObservableCollection<Project> Projects { get; }
         public ObservableCollection<WorkItem> WorkItems { get; }
 
-        private string _queryProject;
-        public string QueryProject
+        private int _queryProject;
+        public int QueryProject
         {
             get => _queryProject;
             set

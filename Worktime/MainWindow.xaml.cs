@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using MongoDB.Bson;
 using Worktime.src;
@@ -66,8 +67,9 @@ namespace Worktime
 
         private void CreateProject(string name)
         {
-            _database.CreateProject(name).ContinueWith(task => Application.Current?.Dispatcher.InvokeAsync(() =>
-                _model.Projects.Add(task.Result)));
+            var project = new Project(ObjectId.GenerateNewId(), name);
+            _database.CreateProject(project);
+            _model.Projects.Add(project);
         }
 
         private void UpdateProject(Project project)

@@ -4,42 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Worktime"
+        xmlns:data="clr-namespace:Worktime.src.data"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         KeyDown="OnKeyDown"
         Loaded="OnLoaded">
     <Grid DataContext="{StaticResource Model}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center">Projects</Label>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button>New</Button>
-            <ListView ItemsSource="{Binding Path=Projects}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
-        <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center">Project Items</Label>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <ListView Grid.Column="1" Name="ProjectList" ItemsSource="{Binding Path=WorkItems}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Path=Project}" />
-                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path=From}" />
-                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path=To}" />
-                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Width="5" />
+        <TabControl Grid.Column="0">
+            <TabItem Header="Projects">
+                <ListView ItemsSource="{Binding Path=Projects}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Label  Content="{Binding Path=Name}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -7,7 +7,7 @@ namespace Worktime.src
     public class ConfigHandler
     {
         private static ConfigHandler _instance;
-        private const string Config = "config.json";
+        private const string Config = "res/config.json";
 
         public static ConfigHandler Instance => _instance ?? (_instance = new ConfigHandler());
 

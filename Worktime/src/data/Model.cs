@@ -5,7 +5,6 @@ namespace Worktime.src.data
 {
     public class Model : AbstractModel
     {
-
         public ObservableCollection<Project> Projects { get; }
         public ObservableCollection<WorkItem> WorkItems { get; }
 

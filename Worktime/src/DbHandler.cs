@@ -29,14 +29,14 @@ namespace Worktime.src
         //   Projects  
         // ************
 
-        public async Task<Project> CreateProject(string name)
+        public async void CreateProject(Project project)
         {
             var document = new BsonDocument()
             {
-                {"name", name}
+                {"_id", project.Id},
+                {"name", project.Name}
             };
             await _projects.InsertOneAsync(document);
-            return new Project(document["_id"].AsObjectId, name);
         }
 
         public async Task<List<Project>> GetProjects()

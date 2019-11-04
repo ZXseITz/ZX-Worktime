@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using MongoDB.Bson;
 using Worktime.src;
 using Worktime.src.data;
 

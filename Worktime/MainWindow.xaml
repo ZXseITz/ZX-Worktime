@@ -7,7 +7,6 @@
         xmlns:data="clr-namespace:Worktime.src.data"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        KeyDown="OnKeyDown"
         Loaded="OnLoaded">
     <Grid DataContext="{StaticResource Model}">
         <Grid.ColumnDefinitions>

@@ -1,7 +1,0 @@
-﻿{
-  "host": "localhost",
-  "port":  27017, 
-  "database_name": "worktime",
-  "project_collection_name": "projects",
-  "workitem_collection_name": "workitems"
-}

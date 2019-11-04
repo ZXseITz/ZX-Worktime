@@ -1,13 +1,7 @@
-﻿
-
-using MongoDB.Bson;
-
-namespace Worktime.src.data
+﻿namespace Worktime.src.data
 {
     public class Project : AbstractModel
     {
-        public ObjectId Id { get; }
-
         private string _name;
 
         public string Name
@@ -20,9 +14,8 @@ namespace Worktime.src.data
             }
         }
 
-        public Project(ObjectId id, string name)
+        public Project(string name)
         {
-            Id = id;
             _name = name;
         }
     }

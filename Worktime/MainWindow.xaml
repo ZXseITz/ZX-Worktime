@@ -20,7 +20,7 @@
         <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Projects}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Name}" />
+                    <TextBlock Text="{Binding Path=Name}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -35,16 +35,18 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="150" />
-                            <ColumnDefinition />
+                            <ColumnDefinition MinWidth="100" />
+                            <ColumnDefinition MinWidth="100" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="{Binding Path=Project.Name}" />
-                        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Path=Description}" />
-                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=From}"
-                               ContentStringFormat="dd.MM.yyyy HH:mm" />
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=To}"
-                               ContentStringFormat="dd.MM.yyyy HH:mm" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Path=Project.Name}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Description}" />
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding Path=From, StringFormat=dd.MM.yyyy HH:mm}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding Path=To, StringFormat=dd.MM.yyyy HH:mm}" />
+                        <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center"
+                               Text="{Binding Hours, StringFormat={}{0:0.00} h}"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

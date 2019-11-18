@@ -49,6 +49,8 @@ namespace Worktime.src.main.cs.data
             }
         }
 
+        public double Hours => (To - From).TotalHours;
+
         public Item(Project project, DateTime from, DateTime to, string description)
         {
             _project = project;

@@ -120,6 +120,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\main\cs\data\Result.cs" />
     <Compile Include="src\main\cs\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

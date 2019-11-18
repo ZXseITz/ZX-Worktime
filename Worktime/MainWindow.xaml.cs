@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using IX.StandardExtensions.Extensions;
 using Newtonsoft.Json.Linq;
 using Worktime.src.main.cs;
@@ -94,13 +95,24 @@ namespace Worktime
             var taskFilter = Task.Run(() =>
             {
                 var query = _model.Query;
-                return _model.Items.Where(item => (query.Project == null || item.Project == query.Project)
-                                                  && (query.From == null || item.From >= query.From)
-                                                  && (query.To == null || item.To <= query.To));
+                var items = new List<Item>();
+                var sum = 0.0;
+                foreach (var item in _model.Items)
+                {
+                    if ((query.Project == null || item.Project == query.Project)
+                        && (query.From == null || item.From >= query.From)
+                        && (query.To == null || item.To <= query.To))
+                    {
+                        items.Add(item);
+                        sum += item.Hours;
+                    }
+                }
+                return (items, sum);
             });
-            var filteredItems = await taskFilter;
-            _model.Result.Clear();
-            filteredItems.ForEach(item => _model.Result.Add(item));
+            var (filteredItems, hours) = await taskFilter;
+            _model.Result.Items.Clear();
+            filteredItems.ForEach(item => _model.Result.Items.Add(item));
+            _model.Result.Time = hours;
         }
     }
 }

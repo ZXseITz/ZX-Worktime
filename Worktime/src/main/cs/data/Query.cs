@@ -4,35 +4,35 @@ namespace Worktime.src.main.cs.data
 {
     public class Query: AbstractModel
     {
-        private int _queryProject;
-        public int QueryProject
+        private Project _project;
+        public Project Project
         {
-            get => _queryProject;
+            get => _project;
             set
             {
-                _queryProject = value;
+                _project = value;
                 OnPropertyChanged();
             }
         }
 
-        private DateTime _queryFrom;
-        public DateTime QueryFrom
+        private DateTime? _from;
+        public DateTime? From
         {
-            get => _queryFrom;
+            get => _from;
             set
             {
-                _queryFrom = value;
+                _from = value;
                 OnPropertyChanged();
             }
         }
 
-        private DateTime _queryTo;
-        public DateTime QueryTo
+        private DateTime? _to;
+        public DateTime? To
         {
-            get => _queryTo;
+            get => _to;
             set
             {
-                _queryTo = value;
+                _to = value;
                 OnPropertyChanged();
             }
         }

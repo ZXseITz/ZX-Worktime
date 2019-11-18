@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Worktime.src.data
+namespace Worktime.src.main.cs.data
 {
     public class AbstractModel : INotifyPropertyChanged
     {

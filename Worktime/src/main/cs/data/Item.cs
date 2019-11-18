@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Worktime.src.data
+namespace Worktime.src.main.cs.data
 {
-    public class WorkItem : AbstractModel
+    public class Item : AbstractModel
     {
         private Project _project;
         private DateTime _from;
@@ -49,7 +49,7 @@ namespace Worktime.src.data
             }
         }
 
-        public WorkItem(Project project, DateTime from, DateTime to, string description)
+        public Item(Project project, DateTime from, DateTime to, string description)
         {
             _project = project;
             _from = from;

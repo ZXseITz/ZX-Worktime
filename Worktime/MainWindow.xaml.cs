@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using IX.StandardExtensions.Extensions;
 using Newtonsoft.Json.Linq;
@@ -34,6 +35,11 @@ namespace Worktime
             _model = FindResource("Model") as Model;
             if (_model == null) throw new Exception("Cannot find model");
             await Load();
+            await Filter();
+        }
+
+        private async void OnFilter(object sender, RoutedEventArgs e)
+        {
             await Filter();
         }
 

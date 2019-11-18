@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:cs="clr-namespace:Worktime.src.main.cs"
+             xmlns:data="clr-namespace:Worktime.src.main.cs.data"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <cs:Model x:Key="Model" />

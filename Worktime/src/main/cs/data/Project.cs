@@ -2,7 +2,7 @@
 {
     public class Project : AbstractModel
     {
-        public readonly int Id;
+        public int Id { get; }
         private string _name;
 
         public string Name

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using Worktime.src.main.cs.data;
 
-namespace Worktime.src.main.cs.src.main.cs.data
+namespace Worktime.src.main.cs.data
 {
     public class Result: AbstractModel
     {

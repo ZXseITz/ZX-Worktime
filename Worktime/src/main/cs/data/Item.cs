@@ -2,12 +2,12 @@
 
 namespace Worktime.src.main.cs.data
 {
-    public class Item : AbstractModel
+    public class Item:  AbstractModel
     {
         private Project _project;
-        private DateTime _from;
-        private DateTime _to;
         private string _description;
+        private DateTime _date;
+        private TimeSpan _timeSpan;
 
         public Project Project
         {
@@ -15,26 +15,6 @@ namespace Worktime.src.main.cs.data
             set
             {
                 _project = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public DateTime From
-        {
-            get => _from;
-            set
-            {
-                _from = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public DateTime To
-        {
-            get => _to;
-            set
-            {
-                _to = value;
                 OnPropertyChanged();
             }
         }
@@ -49,14 +29,32 @@ namespace Worktime.src.main.cs.data
             }
         }
 
-        public double Hours => (To - From).TotalHours;
+        public DateTime Date
+        {
+            get => _date;
+            set
+            {
+                _date = value.Date;
+                OnPropertyChanged();
+            }
+        }
 
-        public Item(Project project, DateTime from, DateTime to, string description)
+        public TimeSpan TimeSpan
+        {
+            get => _timeSpan;
+            set
+            {
+                _timeSpan = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Item(Project project, string description, DateTime date, TimeSpan timeSpan)
         {
             _project = project;
-            _from = from;
-            _to = to;
             _description = description;
+            _date = date;
+            _timeSpan = timeSpan;
         }
     }
 }

@@ -103,8 +103,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="src\main\cs\data\AbstractModel.cs" />
-    <Compile Include="src\main\cs\data\Project.cs" />
     <Compile Include="src\main\cs\data\Item.cs" />
+    <Compile Include="src\main\cs\data\Project.cs" />
     <Compile Include="src\main\cs\data\Query.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

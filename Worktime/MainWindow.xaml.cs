@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
 using IX.StandardExtensions.Extensions;
 using Newtonsoft.Json.Linq;
 using Worktime.src.main.cs;
@@ -67,10 +65,10 @@ namespace Worktime
                 foreach (var item in array.Children())
                 {
                     var project = projects[(int)item["project"]];
-                    var from = (DateTime)item["from"];
-                    var to = (DateTime)item["to"];
+                    var date = (DateTime)item["date"];
+                    var timeSpan = TimeSpan.FromHours((double)item["hours"]);
                     var description = (string)item["description"];
-                    items.Add(new Item(project, from, to, description));
+                    items.Add(new Item(project, description, date, timeSpan));
                 }
                 return items;
             });
@@ -106,11 +104,11 @@ namespace Worktime
                 foreach (var item in _model.Items)
                 {
                     if ((query.Project == null || item.Project == query.Project)
-                        && (query.From == null || item.From >= query.From)
-                        && (query.To == null || item.To <= query.To))
+                        && (query.From == null || item.Date >= query.From)
+                        && (query.To == null || item.Date <= query.To))
                     {
                         items.Add(item);
-                        sum += item.Hours;
+                        sum += item.TimeSpan.TotalHours;
                     }
                 }
                 return (items, sum);

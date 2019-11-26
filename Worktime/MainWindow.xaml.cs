@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 using IX.StandardExtensions.Extensions;
 using Newtonsoft.Json.Linq;
 using Worktime.src.main.cs;
@@ -50,10 +53,11 @@ namespace Worktime
                 var array = JArray.Parse(json);
                 foreach (var item in array.Children())
                 {
-                    var id = (int)item["id"];
-                    var name = (string)item["name"];
+                    var id = (int) item["id"];
+                    var name = (string) item["name"];
                     projects.Add(id, new Project(id, name));
                 }
+
                 return projects;
             });
             var taskItems = Task.Run(async () =>
@@ -64,17 +68,18 @@ namespace Worktime
                 var projects = await taskProjects;
                 foreach (var item in array.Children())
                 {
-                    var project = projects[(int)item["project"]];
-                    var date = (DateTime)item["date"];
-                    var timeSpan = TimeSpan.FromHours((double)item["hours"]);
-                    var description = (string)item["description"];
+                    var project = projects[(int) item["project"]];
+                    var date = (DateTime) item["date"];
+                    var timeSpan = TimeSpan.FromHours((double) item["hours"]);
+                    var description = (string) item["description"];
                     items.Add(new Item(project, description, date, timeSpan));
                 }
+
                 return items;
             });
             var projectMap = await taskProjects;
-            _model.Projects.Clear();
-            projectMap.Values.ForEach(project => _model.Projects.Add(project));
+            _model.Projects.Collection.Clear();
+            projectMap.Values.ForEach(project => _model.Projects.Collection.Add(project));
             var itemList = await taskItems;
             _model.Items.Clear();
             itemList.ForEach(item => _model.Items.Add(item));
@@ -82,14 +87,8 @@ namespace Worktime
 
         private async Task Save()
         {
-            var taskProjects = Task.Run(() =>
-            {
-
-            });
-            var taskItems = Task.Run(() =>
-            {
-
-            });
+            var taskProjects = Task.Run(() => { });
+            var taskItems = Task.Run(() => { });
             await taskProjects;
             await taskItems;
         }
@@ -111,12 +110,22 @@ namespace Worktime
                         sum += item.TimeSpan.TotalHours;
                     }
                 }
+
                 return (items, sum);
             });
             var (filteredItems, hours) = await taskFilter;
             _model.Result.Items.Clear();
             filteredItems.ForEach(item => _model.Result.Items.Add(item));
             _model.Result.Time = hours;
+        }
+
+        private void UpdateSourcePropertyOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && sender is TextBox tb)
+            {
+                var binding = BindingOperations.GetBindingExpression(tb, TextBox.TextProperty);
+                binding?.UpdateSource();
+            }
         }
     }
 }

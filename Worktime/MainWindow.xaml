@@ -8,10 +8,15 @@
         Title="MainWindow" Height="450" Width="800"
         Loaded="OnLoaded">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type data:Project}">
+        <DataTemplate x:Key="ProjectViewTemplate" DataType="{x:Type data:Project}">
             <TextBlock Text="{Binding Path=Name}"/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type data:Item}">
+
+        <DataTemplate x:Key="ProjectEditTemplate" DataType="{x:Type data:Project}">
+            <TextBox Text="{Binding Path=Name}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ItemViewTemplate" DataType="{x:Type data:Item}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -34,14 +39,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
+
         <Label Grid.Row="0" Grid.Column="0">Projects</Label>
-        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Projects}" />
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Projects.Collection}" SelectionMode="Single" SelectedItem="{Binding Path=Projects.Selection}"
+                  ItemTemplate="{StaticResource ProjectViewTemplate}">
+        </ListView>
+        <GroupBox Grid.Row="2" Grid.Column="0" Header="Selection">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Name" />
+                <TextBox Text="{Binding Path=Projects.Selection.Name, Mode=TwoWay}" KeyDown="UpdateSourcePropertyOnEnter"></TextBox>
+            </StackPanel>
+        </GroupBox>
 
         <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" Width="5" />
 
@@ -50,7 +65,7 @@
             <GroupBox DockPanel.Dock="Top" Header="Query">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Project: " />
-                    <ComboBox SelectedIndex="0" SelectedItem="{Binding Query.Project}" ItemsSource="{Binding Path=Projects}">
+                    <ComboBox SelectedIndex="0" SelectedItem="{Binding Query.Project}" ItemsSource="{Binding Path=Projects.Collection}" ItemTemplate="{StaticResource ProjectViewTemplate}">
                     </ComboBox>
                     <TextBlock Text="From: " />
                     <DatePicker SelectedDate="{Binding Path=Query.From}" />
@@ -60,7 +75,7 @@
                 </StackPanel>
             </GroupBox>
             <TextBlock DockPanel.Dock="Bottom" Text="{Binding Result.Time, StringFormat=Total: {0:0.00} h}" />
-            <ListView ItemsSource="{Binding Path=Result.Items}" />
+            <ListView ItemsSource="{Binding Path=Result.Items}" SelectionMode="Multiple" ItemTemplate="{StaticResource ItemViewTemplate}" />
         </DockPanel>
     </Grid>
 </Window>
